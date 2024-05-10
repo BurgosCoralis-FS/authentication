@@ -1,0 +1,28 @@
+GET http://localhost:9000/api/movies/
+
+
+###
+GET http://localhost:9000/api/movies/65f231289f2196e5c3483071
+
+###
+POST http://localhost:9000/api/movies
+Content-Type: application/json
+
+{
+    "title": "Title example",
+    "description": "Description example",
+    "rating": 2
+}
+
+###
+PATCH http://localhost:9000/api/movies/65f231289f2196e5c3483071
+Content-Type: application/json
+
+{
+    "title": "Title Edit",
+    "description": "Description Edit",
+    "rating": 5
+}
+
+###
+DELETE http://localhost:9000/api/movies/65fce9e8370b3a0b2d814bcb
