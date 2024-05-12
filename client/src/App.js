@@ -13,13 +13,13 @@ function App() {
     const user = authService.getCurrentUser()
     if(user){ setCurrentUser(user) }
   }, [])
-
-  const logout = () => {
-    authService.logout()
-  }
   
   return (
     <div>
+      {currentUser && (
+        <p className='welcome'>Welcome, {currentUser.username}!</p>
+      )}
+
       <Router>
         <Routes>
           <Route path='/' exact element={<Home />} />

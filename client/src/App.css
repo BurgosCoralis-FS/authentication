@@ -23,6 +23,10 @@ h2 {
   -webkit-text-stroke-color: #000000;
 }
 
+.welcome {
+  display: none;
+}
+
 .signIn form{
   padding: 40px 10px;
   margin-bottom: 2%;
