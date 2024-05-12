@@ -17,7 +17,7 @@ function App() {
   return (
     <div>
       {currentUser && (
-        <p className='welcome'>Welcome, {currentUser.username}!</p>
+        <p className='unused-variable'>Welcome, {currentUser.username}!</p>
       )}
 
       <Router>

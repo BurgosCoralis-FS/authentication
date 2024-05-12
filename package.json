@@ -14,7 +14,7 @@
     "install-client": "npm install --prefix client",
     "install-api": "npm install --prefix api",
     "start": "npm start --prefix api",
-    "dev:client": "concurrently --raw \"npm run api\" \"npm run client\"",
+    "dev:client": "concurrently --raw \"npm run api\" \"npm run client\" \"npm install -g serve\" \"serve -s build\"",
     "client": "cd client && npm run start",
     "api": "cd api && npm run dev"
   },
