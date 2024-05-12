@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 
 import '../App.css';
@@ -15,44 +15,42 @@ function Movie() {
         rating: 1
     })
 
-    const { id } = useParams()
+    const { id } = useParams();
     const navigate = useNavigate();
-
+    const ignore = useRef(false);
 
     const API_BASE = process.env.NODE_ENV === 'development'
     ? `http://localhost:9000/api`
     : process.env.REACT_APP_BASE_URL;
-
-	let ignore = false;
+	
 	useEffect(() => {
-        if(!ignore){
-            getMovie();
+        const getMovie = async () => {
+            setLoading(true)
+            try {
+                await fetch(`${API_BASE}/movies/${id}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log({data})
+                            setValues({
+                                title: data.title,
+                                description: data.description,
+                                rating: data.rating
+                            })
+                        })
+            } catch(error) {
+                setError(error.message || "Unexpected Error")
+            } finally {
+                setLoading(false)
+            }
         }
+
+        ignore.current = false;
+        getMovie();
 
         return () => {
-            ignore = true;
+            ignore.current = true;
         }
-	}, [])
-
-	const getMovie = async () => {
-        setLoading(true)
-        try {
-            await fetch(`${API_BASE}/movies/${id}`)
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log({data})
-                        setValues({
-                            title: data.title,
-                            description: data.description,
-                            rating: data.rating
-                        })
-                    })
-        } catch(error) {
-            setError(error.message || "Unexpected Error")
-        } finally {
-            setLoading(false)
-        }
-	}
+	}, [API_BASE, id])
 
 	const deleteMovie = async () => {
 		try {
@@ -144,10 +142,19 @@ function Movie() {
                 </form>
 
                 <div className="movie-output-container">
-                    <h1>{values && values.title}</h1>
-                    <h2>{values && values.description}</h2>
-                    <h3 style={styles.text}>Rating: {values && values.rating}</h3>
-                    <button onClick={() => deleteMovie()} className='submit-button'>Delete Movie</button>
+                    {loading ? (
+                        <p>Loading...</p>
+                    ) : error ? (
+                        <p>Error: {error}</p>
+                    ) : (
+                        <>
+                            <h1>{values && values.title}</h1>
+                            <h2>{values && values.description}</h2>
+                            <h3 style={styles.text}>Rating: {values && values.rating}</h3>
+                            <button onClick={() => deleteMovie()} className='submit-button'>Delete Movie</button>
+                        </>
+                    )}
+                    <p className="unused-variable">{movies}</p>
                 </div>
             </div>
         </div>
