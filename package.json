@@ -9,18 +9,19 @@
   "scripts": {
     "build": "npm run build-client && npm run api",
     "build-client": "npm run build --prefix client",
-    "build-api": "npm run build --prefix api",
     "install": "npm install --prefix api && npm install --prefix client",
-    "install-client": "npm install --prefix client",
-    "install-api": "npm install --prefix api",
-    "start": "npm start --prefix api",
-    "dev:client": "concurrently --raw \"npm run api\" \"npm run client\" \"npm install -g serve\" \"serve -s build\"",
+    "start": "npm run serve",
+    "deploy": "npm run build && npm run start",
     "client": "cd client && npm run start",
-    "api": "cd api && npm run dev"
+    "api": "cd api && npm run dev",
+    "serve": "serve -s build"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "concurrently": "^8.2.2"
+  },
+  "devDependencies": {
+    "serve": "^14.2.3"
   }
 }
