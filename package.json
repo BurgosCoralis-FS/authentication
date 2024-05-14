@@ -7,14 +7,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm run build-client && npm run api",
+    "install": "npm install --prefix client && npm install --prefix api",
+    "build": "npm run build-client",
     "build-client": "npm run build --prefix client",
-    "install": "npm install --prefix api && npm install --prefix client",
-    "start": "npm run serve",
-    "deploy": "npm run build && npm run start",
-    "client": "cd client && npm run start",
-    "api": "cd api && npm run dev",
-    "serve": "serve -s build"
+    "start-api": "npm start --prefix api",
+    "start-client": "cd client && npm run start",
+    "dev": "concurrently --raw \"npm run start-api\" \"npm run start-client\"",
+    "api": "cd api && nodemon server.js"
   },
   "author": "",
   "license": "ISC",
