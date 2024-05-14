@@ -12,7 +12,7 @@
     "build-client": "npm run build --prefix client",
     "start-api": "npm start --prefix api",
     "start-client": "cd client && npm run start",
-    "dev": "concurrently --raw \"npm run start-api\" \"npm run start-client\"",
+    "dev": "concurrently --raw \"npm run start-api\" \"npm run build-client\"",
     "api": "cd api && nodemon server.js"
   },
   "author": "",
