@@ -9,7 +9,7 @@
   "scripts": {
     "install": "npm install --prefix client && npm install --prefix api",
     "build": "npm run build-client",
-    "build-client": "cd client && npm run build",
+    "build-client": "npm run build --prefix client",
     "start-api": "npm start --prefix api",
     "start-client": "cd client && npm run start",
     "dev": "concurrently --raw \"npm run start-api\" \"npm run start-client\"",
